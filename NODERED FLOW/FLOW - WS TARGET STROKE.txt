@@ -1,0 +1,131 @@
+[
+    {
+        "id": "9c9f9c3a.64044",
+        "type": "tab",
+        "label": "WS Target Stroke",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "60134674.e95498",
+        "type": "inject",
+        "z": "9c9f9c3a.64044",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 131,
+        "y": 78,
+        "wires": [
+            [
+                "cf5e029b.e437"
+            ]
+        ]
+    },
+    {
+        "id": "cf5e029b.e437",
+        "type": "function",
+        "z": "9c9f9c3a.64044",
+        "name": "",
+        "func": "msg.topic = `select * from targets`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 300,
+        "y": 100,
+        "wires": [
+            [
+                "f8017861.431698"
+            ]
+        ]
+    },
+    {
+        "id": "f8017861.431698",
+        "type": "mysql",
+        "z": "9c9f9c3a.64044",
+        "mydb": "19a6cb10.7b7775",
+        "name": "DB andonx",
+        "x": 470,
+        "y": 140,
+        "wires": [
+            [
+                "34504aa1.1484d6",
+                "e9ed6b02.8cbdc8"
+            ]
+        ]
+    },
+    {
+        "id": "34504aa1.1484d6",
+        "type": "debug",
+        "z": "9c9f9c3a.64044",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3f31058.5d193fa",
+        "type": "websocket out",
+        "z": "9c9f9c3a.64044",
+        "name": "/ws/real_target_stroke == WS Out Target Stroke",
+        "server": "2c8afd5d.06e592",
+        "client": "",
+        "x": 920,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "e9ed6b02.8cbdc8",
+        "type": "jquerify",
+        "z": "9c9f9c3a.64044",
+        "name": "",
+        "func": "var values = msg.payload[0];\nmsg.payload.data = values;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "3f31058.5d193fa"
+            ]
+        ]
+    },
+    {
+        "id": "19a6cb10.7b7775",
+        "type": "MySQLdatabase",
+        "z": "9c9f9c3a.64044",
+        "name": "",
+        "host": "127.0.0.1",
+        "port": "3306",
+        "db": "andonx",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "2c8afd5d.06e592",
+        "type": "websocket-listener",
+        "path": "/ws/real_target_stroke",
+        "wholemsg": "false"
+    }
+]

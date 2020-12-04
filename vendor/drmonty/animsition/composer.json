@@ -1,0 +1,31 @@
+{
+    "name": "drmonty/animsition",
+    "description": "A simple and easy jQuery plugin for CSS animated page transitions.",
+    "type": "component",
+    "homepage": "http://git.blivesta.com/animsition",
+    "license": "MIT",
+    "author": {
+        "url": "http://blivesta.com/",
+        "name": "Yasuyuki Enomoto"
+    },
+    "require": {
+        "components/jquery": ">= 1.11.0"
+    },
+    "extra": {
+        "component": {
+            "scripts": [
+                "js/animsition.js",
+                "js/animsition.min.js"
+            ],
+            "files": [
+                "css/animsition.css",
+                "css/animsition.min.css",
+                "js/animsition.js",
+                "js/animsition.min.js"
+            ],
+            "shim": {
+                "deps": ["jquery"]
+            }
+        }
+    }
+}

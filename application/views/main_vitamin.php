@@ -47,12 +47,10 @@
             closeFormsX();
         });
 
-        $('#vi, #vh, #vaa, #vz').on('click', function(e) {
+        $('#vi, #vh, #vaa, #vz, input').on('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
         });
-
-
 
         initWebSocketTargetStroke();
         initWebSocketMachineStateI();
@@ -134,6 +132,43 @@
 
         });
 
+        target_i.on('change', function(e) {
+            console.log('onchange');
+
+            $.ajax({
+                url: `<?= site_url(); ?>update_target/i`,
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    target_stroke_i: target_i.val(),
+                    tipe: 'i',
+                },
+            }).always(function() {
+                fly_i.hide();
+            }).fail(function(res) {
+                console.log(res);
+            }).done(function(res) {
+                if (res.code == 500) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Proses Update Target Stroke I Gagal, Silahkan coba kembali',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res.code == 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Target Stroke I Berhasil diupdate',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+
+        });
+
         target_h.on('keypress', function(e) {
 
             if (e.which == 13) {
@@ -169,6 +204,42 @@
                     }
                 });
             }
+
+        });
+
+        target_h.on('change', function(e) {
+
+            $.ajax({
+                url: `<?= site_url(); ?>update_target/h`,
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    target_stroke_h: target_h.val(),
+                    tipe: 'h',
+                },
+            }).always(function() {
+                fly_h.hide();
+            }).fail(function(res) {
+                console.log(res);
+            }).done(function(res) {
+                if (res.code == 500) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Proses Update Target Stroke H Gagal, Silahkan coba kembali',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res.code == 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Target Stroke H Berhasil diupdate',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
 
         });
 
@@ -210,6 +281,42 @@
 
         });
 
+        target_aa.on('change', function(e) {
+
+            $.ajax({
+                url: `<?= site_url(); ?>update_target/aa`,
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    target_stroke_aa: target_aa.val(),
+                    tipe: 'aa',
+                },
+            }).always(function() {
+                fly_aa.hide();
+            }).fail(function(res) {
+                console.log(res);
+            }).done(function(res) {
+                if (res.code == 500) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Proses Update Target Stroke AA Gagal, Silahkan coba kembali',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res.code == 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Target Stroke AA Berhasil diupdate',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+
+        });
+
         target_z.on('keypress', function(e) {
 
             if (e.which == 13) {
@@ -246,6 +353,58 @@
                 });
             }
 
+        });
+
+        target_z.on('change', function(e) {
+
+            $.ajax({
+                url: `<?= site_url(); ?>update_target/z`,
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    target_stroke_z: target_z.val(),
+                    tipe: 'z',
+                },
+            }).always(function() {
+                fly_z.hide();
+            }).fail(function(res) {
+                console.log(res);
+            }).done(function(res) {
+                if (res.code == 500) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Proses Update Target Stroke Z Gagal, Silahkan coba kembali',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else if (res.code == 200) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Target Stroke Z Berhasil diupdate',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            });
+
+        });
+
+        setInputFilter(document.getElementById("target_i"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
+
+        setInputFilter(document.getElementById("target_h"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
+
+        setInputFilter(document.getElementById("target_aa"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
+        });
+
+        setInputFilter(document.getElementById("target_z"), function(value) {
+            return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
         });
     });
 
@@ -648,5 +807,22 @@
         $(`.fly_h`).hide();
         $(`.fly_aa`).hide();
         $(`.fly_z`).hide();
+    }
+
+    function setInputFilter(textbox, inputFilter) {
+        ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
+            textbox.addEventListener(event, function() {
+                if (inputFilter(this.value)) {
+                    this.oldValue = this.value;
+                    this.oldSelectionStart = this.selectionStart;
+                    this.oldSelectionEnd = this.selectionEnd;
+                } else if (this.hasOwnProperty("oldValue")) {
+                    this.value = this.oldValue;
+                    this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                } else {
+                    this.value = "";
+                }
+            });
+        });
     }
 </script>

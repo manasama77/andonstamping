@@ -106,22 +106,22 @@
     </div>
 
     <div class="fly_i text-center" style="display: none;">
-        <input type="number" class="form-control" id="target_i" name="target_h=i" placeholder="value" min="0" max="9999">
+        <input type="text" class="form-control" id="target_i" name="target_h=i" placeholder="value" min="0" max="9999">
         <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('i')"><i class="fas fa-times"></i></button>
     </div>
 
     <div class="fly_h" style="display: none;">
-        <input type="number" class="form-control" id="target_h" name="target_h" placeholder="value H" min="0" max="9999">
+        <input type="text" class="form-control" id="target_h" name="target_h" placeholder="value H" min="0" max="9999">
         <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('h')"><i class="fas fa-times"></i></button>
     </div>
 
     <div class="fly_aa" style="display: none;">
-        <input type="number" class="form-control" id="target_aa" name="target_aa" placeholder="value AA" min="0" max="9999">
+        <input type="text" class="form-control" id="target_aa" name="target_aa" placeholder="value AA" min="0" max="9999">
         <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('aa')"><i class="fas fa-times"></i></button>
     </div>
 
     <div class="fly_z" style="display: none;">
-        <input type="number" class="form-control" id="target_z" name="target_z" placeholder="value Z" min="0" max="9999">
+        <input type="text" class="form-control" id="target_z" name="target_z" placeholder="value Z" min="0" max="9999">
         <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('z')"><i class="fas fa-times"></i></button>
     </div>
 

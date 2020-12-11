@@ -1,24 +1,20 @@
 <script>
     //global
     let trigger_modal_i = $('.trigger_modal_i'),
-        modal_target_stroke_i = $('#modal_target_stroke_i'),
-        form_target_i = $('#form_target_i'),
-        target_stroke_i = $('#target_stroke_i'),
+        fly_i = $('.fly_i'),
+        target_i = $('#target_i'),
 
         trigger_modal_h = $('.trigger_modal_h'),
-        modal_target_stroke_h = $('#modal_target_stroke_h'),
-        form_target_h = $('#form_target_h'),
-        target_stroke_h = $('#target_stroke_h'),
+        fly_h = $('.fly_h'),
+        target_h = $('#target_h'),
 
         trigger_modal_aa = $('.trigger_modal_aa'),
-        modal_target_stroke_aa = $('#modal_target_stroke_aa'),
-        form_target_aa = $('#form_target_aa'),
-        target_stroke_aa = $('#target_stroke_aa'),
+        fly_aa = $('.fly_aa'),
+        target_aa = $('#target_aa'),
 
         trigger_modal_z = $('.trigger_modal_z'),
-        modal_target_stroke_z = $('#modal_target_stroke_z'),
-        form_target_z = $('#form_target_z'),
-        target_stroke_z = $('#target_stroke_z'),
+        fly_z = $('.fly_z'),
+        target_z = $('#target_z'),
 
         i_status = $('#i_status'),
         h_status = $('#h_status'),
@@ -47,8 +43,22 @@
 
     $(document).ready(function() {
 
+        $('body').on('click', function() {
+            closeFormsX();
+        });
+
+        $('#vi, #vh, #vaa, #vz').on('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+
+
         initWebSocketTargetStroke();
-        initWebSocketMachineState();
+        initWebSocketMachineStateI();
+        initWebSocketMachineStateH();
+        initWebSocketMachineStateAA();
+        initWebSocketMachineStateZ();
         initWebSocketItemNameMachineI();
         initWebSocketItemNameMachineH();
         initWebSocketItemNameMachineAA();
@@ -67,189 +77,174 @@
         initWebSocketTotalLineStopZ();
 
         trigger_modal_i.on('click', function() {
-            let data_target = trigger_modal_i.data('target');
-            target_stroke_i.val(data_target);
-            modal_target_stroke_i.modal('show');
+            openFormsX("i");
+            target_i.focus();
         });
 
         trigger_modal_h.on('click', function() {
-            let data_target = trigger_modal_h.data('target');
-            target_stroke_h.val(data_target);
-            modal_target_stroke_h.modal('show');
+            openFormsX("h");
+            target_h.focus();
         });
 
         trigger_modal_aa.on('click', function() {
-            let data_target = trigger_modal_aa.data('target');
-            target_stroke_aa.val(data_target);
-            modal_target_stroke_aa.modal('show');
+            openFormsX("aa");
+            target_aa.focus();
         });
 
         trigger_modal_z.on('click', function() {
-            let data_target = trigger_modal_z.data('target');
-            target_stroke_z.val(data_target);
-            modal_target_stroke_z.modal('show');
+            openFormsX("z");
+            target_z.focus();
         });
 
-        form_target_i.on('submit', function() {
+        target_i.on('keypress', function(e) {
 
-            $.ajax({
-                url: `<?= site_url(); ?>update_target/i`,
-                method: 'post',
-                dataType: 'json',
-                data: form_target_i.serialize(),
-                beforeSend: function() {
-                    modal_target_stroke_i.block();
-                }
-            }).always(function() {
-                modal_target_stroke_i.unblock();
-            }).fail(function(res) {
-                console.log(res);
-            }).done(function(res) {
-                if (res.code == 500) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Proses Update Target Stroke I Gagal, Silahkan coba kembali',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else if (res.code == 200) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Target Stroke I Berhasil diupdate',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-
-                modal_target_stroke_i.modal('hide');
-                update_target_stroke();
-            });
-
-            return false;
+            if (e.which == 13) {
+                $.ajax({
+                    url: `<?= site_url(); ?>update_target/i`,
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        target_stroke_i: target_i.val(),
+                        tipe: 'i',
+                    },
+                }).always(function() {
+                    fly_i.hide();
+                }).fail(function(res) {
+                    console.log(res);
+                }).done(function(res) {
+                    if (res.code == 500) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Proses Update Target Stroke I Gagal, Silahkan coba kembali',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (res.code == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Target Stroke I Berhasil diupdate',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
 
         });
 
-        form_target_h.on('submit', function() {
+        target_h.on('keypress', function(e) {
 
-            $.ajax({
-                url: `<?= site_url(); ?>update_target/h`,
-                method: 'post',
-                dataType: 'json',
-                data: form_target_h.serialize(),
-                beforeSend: function() {
-                    modal_target_stroke_h.block();
-                }
-            }).always(function() {
-                modal_target_stroke_h.unblock();
-            }).fail(function(res) {
-                console.log(res);
-            }).done(function(res) {
-                if (res.code == 500) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Proses Update Target Stroke H Gagal, Silahkan coba kembali',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else if (res.code == 200) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Target Stroke H Berhasil diupdate',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-
-                modal_target_stroke_h.modal('hide');
-                update_target_stroke();
-            });
-
-            return false;
+            if (e.which == 13) {
+                $.ajax({
+                    url: `<?= site_url(); ?>update_target/h`,
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        target_stroke_h: target_h.val(),
+                        tipe: 'h',
+                    },
+                }).always(function() {
+                    fly_h.hide();
+                }).fail(function(res) {
+                    console.log(res);
+                }).done(function(res) {
+                    if (res.code == 500) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Proses Update Target Stroke H Gagal, Silahkan coba kembali',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (res.code == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Target Stroke H Berhasil diupdate',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
 
         });
 
-        form_target_aa.on('submit', function() {
+        target_aa.on('keypress', function(e) {
 
-            $.ajax({
-                url: `<?= site_url(); ?>update_target/aa`,
-                method: 'post',
-                dataType: 'json',
-                data: form_target_aa.serialize(),
-                beforeSend: function() {
-                    modal_target_stroke_aa.block();
-                }
-            }).always(function() {
-                modal_target_stroke_aa.unblock();
-            }).fail(function(res) {
-                console.log(res);
-            }).done(function(res) {
-                if (res.code == 500) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Proses Update Target Stroke AA Gagal, Silahkan coba kembali',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else if (res.code == 200) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Target Stroke AA Berhasil diupdate',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-
-                modal_target_stroke_aa.modal('hide');
-                update_target_stroke();
-            });
-
-            return false;
+            if (e.which == 13) {
+                $.ajax({
+                    url: `<?= site_url(); ?>update_target/aa`,
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        target_stroke_aa: target_aa.val(),
+                        tipe: 'aa',
+                    },
+                }).always(function() {
+                    fly_aa.hide();
+                }).fail(function(res) {
+                    console.log(res);
+                }).done(function(res) {
+                    if (res.code == 500) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Proses Update Target Stroke AA Gagal, Silahkan coba kembali',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (res.code == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Target Stroke AA Berhasil diupdate',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
 
         });
 
-        form_target_z.on('submit', function() {
+        target_z.on('keypress', function(e) {
 
-            $.ajax({
-                url: `<?= site_url(); ?>update_target/z`,
-                method: 'post',
-                dataType: 'json',
-                data: form_target_z.serialize(),
-                beforeSend: function() {
-                    modal_target_stroke_z.block();
-                }
-            }).always(function() {
-                modal_target_stroke_z.unblock();
-            }).fail(function(res) {
-                console.log(res);
-            }).done(function(res) {
-                if (res.code == 500) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Proses Update Target Stroke Z Gagal, Silahkan coba kembali',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else if (res.code == 200) {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Target Stroke Z Berhasil diupdate',
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-
-                modal_target_stroke_z.modal('hide');
-            });
-
-            return false;
+            if (e.which == 13) {
+                $.ajax({
+                    url: `<?= site_url(); ?>update_target/z`,
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        target_stroke_z: target_z.val(),
+                        tipe: 'z',
+                    },
+                }).always(function() {
+                    fly_z.hide();
+                }).fail(function(res) {
+                    console.log(res);
+                }).done(function(res) {
+                    if (res.code == 500) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Proses Update Target Stroke Z Gagal, Silahkan coba kembali',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (res.code == 200) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Target Stroke Z Berhasil diupdate',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                });
+            }
 
         });
     });
@@ -269,29 +264,123 @@
                 let name_print = k.name.toLowerCase();
                 let target_print = k.target;
                 $(`#v${name_print}`).text(target_print);
-                $(`#v${name_print}`).data('target', k.target);
             });
 
         }
     }
 
-    function initWebSocketMachineState() {
-        let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator`);
+    function initWebSocketMachineStateI() {
+        let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_i`);
         ws.onerror = (e) => console.log(e)
         ws.onopen = () => console.log('connect');
         ws.onclose = () => {
             console.log('disconnect');
-            setTimeout(() => initWebSocketMachineState(), 1000);
+            setTimeout(() => initWebSocketMachineStateI(), 1000);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            // console.log(res);
+            console.log(res);
 
-            $.each(res, function(i, k) {
-                let state = k.state;
-                // console.warn(`${state}_aktif`);
-                $(`#${k.machine}_status`).removeClass().addClass(`${state}_aktif mm17`);
-            });
+            if (res.stateProduksi == '1') {
+                i_status.removeClass().addClass(`produksi_aktif mm17`);
+            } else if (res.stateStop == '1') {
+                i_status.removeClass().addClass(`stop_aktif mm17`);
+            } else if (res.stateDandori == '1') {
+                i_status.removeClass().addClass(`dandori_aktif mm17`);
+            } else if (res.stateTrblDie == '1') {
+                i_status.removeClass().addClass(`trbl_die_aktif mm17`);
+            } else if (res.stateTrblMC == '1') {
+                i_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+            } else {
+                i_status.removeClass().addClass(`mm17`);
+            }
+
+        }
+    }
+
+    function initWebSocketMachineStateH() {
+        let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_h`);
+        ws.onerror = (e) => console.log(e)
+        ws.onopen = () => console.log('connect');
+        ws.onclose = () => {
+            console.log('disconnect');
+            setTimeout(() => initWebSocketMachineStateH(), 1000);
+        }
+        ws.onmessage = (e) => {
+            let res = JSON.parse(e.data);
+            console.log(res);
+
+            if (res.stateProduksi == '1') {
+                h_status.removeClass().addClass(`produksi_aktif mm17`);
+            } else if (res.stateStop == '1') {
+                h_status.removeClass().addClass(`stop_aktif mm17`);
+            } else if (res.stateDandori == '1') {
+                h_status.removeClass().addClass(`dandori_aktif mm17`);
+            } else if (res.stateTrblDie == '1') {
+                h_status.removeClass().addClass(`trbl_die_aktif mm17`);
+            } else if (res.stateTrblMC == '1') {
+                h_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+            } else {
+                h_status.removeClass().addClass(`mm17`);
+            }
+
+        }
+    }
+
+    function initWebSocketMachineStateAA() {
+        let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_aa`);
+        ws.onerror = (e) => console.log(e)
+        ws.onopen = () => console.log('connect');
+        ws.onclose = () => {
+            console.log('disconnect');
+            setTimeout(() => initWebSocketMachineStateAA(), 1000);
+        }
+        ws.onmessage = (e) => {
+            let res = JSON.parse(e.data);
+            console.log(res);
+
+            if (res.stateProduksi == '1') {
+                aa_status.removeClass().addClass(`produksi_aktif mm17`);
+            } else if (res.stateStop == '1') {
+                aa_status.removeClass().addClass(`stop_aktif mm17`);
+            } else if (res.stateDandori == '1') {
+                aa_status.removeClass().addClass(`dandori_aktif mm17`);
+            } else if (res.stateTrblDie == '1') {
+                aa_status.removeClass().addClass(`trbl_die_aktif mm17`);
+            } else if (res.stateTrblMC == '1') {
+                aa_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+            } else {
+                aa_status.removeClass().addClass(`mm17`);
+            }
+
+        }
+    }
+
+    function initWebSocketMachineStateZ() {
+        let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_z`);
+        ws.onerror = (e) => console.log(e)
+        ws.onopen = () => console.log('connect');
+        ws.onclose = () => {
+            console.log('disconnect');
+            setTimeout(() => initWebSocketMachineStateZ(), 1000);
+        }
+        ws.onmessage = (e) => {
+            let res = JSON.parse(e.data);
+            console.log(res);
+
+            if (res.stateProduksi == '1') {
+                z_status.removeClass().addClass(`produksi_aktif mm17`);
+            } else if (res.stateStop == '1') {
+                z_status.removeClass().addClass(`stop_aktif mm17`);
+            } else if (res.stateDandori == '1') {
+                z_status.removeClass().addClass(`dandori_aktif mm17`);
+            } else if (res.stateTrblDie == '1') {
+                z_status.removeClass().addClass(`trbl_die_aktif mm17`);
+            } else if (res.stateTrblMC == '1') {
+                z_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+            } else {
+                z_status.removeClass().addClass(`mm17`);
+            }
 
         }
     }
@@ -379,42 +468,42 @@
     function initWebSocketCurrentStrokeI() {
         let ws = new WebSocket(`<?= NODERED ?>ws/current_stroke_i`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect current_stroke_i');
         ws.onclose = () => {
             console.log('disconnect');
             setTimeout(() => initWebSocketCurrentStrokeI(), 1000);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            current_stroke_i.text(res.currentStrokeI);
+            current_stroke_i.text(res.currentStroke);
         }
     }
 
     function initWebSocketCurrentStrokeH() {
         let ws = new WebSocket(`<?= NODERED ?>ws/current_stroke_h`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect current_stroke_h');
         ws.onclose = () => {
             console.log('disconnect');
             setTimeout(() => initWebSocketCurrentStrokeH(), 1000);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            current_stroke_h.text(res.currentStrokeH);
+            current_stroke_h.text(res.currentStroke);
         }
     }
 
     function initWebSocketCurrentStrokeAA() {
         let ws = new WebSocket(`<?= NODERED ?>ws/current_stroke_aa`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect current_stroke_aa');
         ws.onclose = () => {
             console.log('disconnect');
             setTimeout(() => initWebSocketCurrentStrokeAA(), 1000);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            current_stroke_aa.text(res.currentStrokeAA);
+            current_stroke_aa.text(res.currentStroke);
         }
     }
 
@@ -428,7 +517,7 @@
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            current_stroke_z.text(res.currentStrokeZ);
+            current_stroke_z.text(res.currentStroke);
         }
     }
 
@@ -542,5 +631,22 @@
             let res = JSON.parse(e.data);
             total_line_stop_z.text(res.totalLineStopZ);
         }
+    }
+
+    function openFormsX(name) {
+        let prev_target = $(`#v${name}`).text();
+        $(`.fly_${name}`).show();
+        $(`#target_${name}`).val(prev_target);
+    }
+
+    // function closeFormsX(name) {
+    //     $(`.fly_${name}`).hide();
+    // }
+
+    function closeFormsX() {
+        $(`.fly_i`).hide();
+        $(`.fly_h`).hide();
+        $(`.fly_aa`).hide();
+        $(`.fly_z`).hide();
     }
 </script>

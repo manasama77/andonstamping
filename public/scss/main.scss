@@ -37,8 +37,8 @@ body {
 	text-align: center;
 	vertical-align: middle !important;
 	padding: 0px !important;
-	background-color: $kondisi_stop;
-	color: $hitam;
+	// background-color: $kondisi_stop;
+	color: $putih;
 
 	span {
 		font-size: 4.2vw !important;
@@ -144,25 +144,58 @@ table {
 
 .produksi_aktif {
 	background-color: $kondisi_produksi;
+	color: $hitam !important;
 }
 
 .stop_aktif {
 	background-color: $kondisi_stop;
+	color: $hitam !important;
 }
 
 .dandori_aktif {
 	background-color: $kondisi_dandori;
+	color: $hitam !important;
 }
 
 .trbl_die_aktif {
 	background-color: $kondisi_trbl_die;
+	color: $hitam !important;
 }
 
 .trbl_mc_aktif {
 	background-color: $kondisi_trbl_mc;
+	color: $hitam !important;
 }
 
 .trigger_modal:hover {
 	background-color: rgba(255, 255, 255, 0.2);
 	cursor: pointer;
+}
+
+.fly_i {
+	position: absolute;
+	top: 54vh;
+	left: 35.1vw;
+	width: 14vw;
+}
+
+.fly_h {
+	position: absolute;
+	top: 54vh;
+	left: 51.1vw;
+	width: 14vw;
+}
+
+.fly_aa {
+	position: absolute;
+	top: 54vh;
+	left: 67vw;
+	width: 14vw;
+}
+
+.fly_z {
+	position: absolute;
+	top: 54vh;
+	left: 83.1vw;
+	width: 14vw;
 }

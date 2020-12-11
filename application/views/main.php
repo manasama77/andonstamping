@@ -59,7 +59,7 @@
                             <td id="vz" class="text-center tg frx <?= $trigger_z; ?>" data-target="0">0</td>
                         </tr>
                         <tr>
-                            <td class="p-2"><b>total stroke</b></td>
+                            <td class=" p-2"><b>total stroke</b></td>
                             <td class="text-center tg frx" id="total_stroke_i">0</td>
                             <td class="text-center tg frx" id="total_stroke_h">0</td>
                             <td class="text-center tg frx" id="total_stroke_aa">0</td>
@@ -105,113 +105,25 @@
         </div>
     </div>
 
-    <form id="form_target_i" class="form" action="#" method="post">
-        <div class="modal fade" tabindex="-1" role="dialog" id="modal_target_stroke_i">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Target Stroke I</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="font-size: 0.4em;">
-                        <div class="form-group row">
-                            <label for="target_stroke_i" class="col-6 col-form-label">Target Stroke ?</label>
-                            <div class="col-6">
-                                <input type="number" class="form-control" id="target_stroke_i" name="target_stroke_i" max="10000" value="0" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div class="fly_i text-center" style="display: none;">
+        <input type="number" class="form-control" id="target_i" name="target_h=i" placeholder="value" min="0" max="9999">
+        <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('i')"><i class="fas fa-times"></i></button>
+    </div>
 
-    <form id="form_target_h" class="form" action="#" method="post">
-        <div class="modal fade" tabindex="-1" role="dialog" id="modal_target_stroke_h">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Target Stroke H</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="font-size: 0.4em;">
-                        <div class="form-group row">
-                            <label for="target_stroke_h" class="col-6 col-form-label">Target Stroke ?</label>
-                            <div class="col-6">
-                                <input type="number" class="form-control" id="target_stroke_h" name="target_stroke_h" max="10000" value="0" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div class="fly_h" style="display: none;">
+        <input type="number" class="form-control" id="target_h" name="target_h" placeholder="value H" min="0" max="9999">
+        <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('h')"><i class="fas fa-times"></i></button>
+    </div>
 
-    <form id="form_target_aa" class="form" action="#" method="post">
-        <div class="modal fade" tabindex="-1" role="dialog" id="modal_target_stroke_aa">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Target Stroke AA</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="font-size: 0.4em;">
-                        <div class="form-group row">
-                            <label for="target_stroke_aa" class="col-6 col-form-label">Target Stroke ?</label>
-                            <div class="col-6">
-                                <input type="number" class="form-control" id="target_stroke_aa" name="target_stroke_aa" max="10000" value="0" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div class="fly_aa" style="display: none;">
+        <input type="number" class="form-control" id="target_aa" name="target_aa" placeholder="value AA" min="0" max="9999">
+        <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('aa')"><i class="fas fa-times"></i></button>
+    </div>
 
-    <form id="form_target_z" class="form" action="#" method="post">
-        <div class="modal fade" tabindex="-1" role="dialog" id="modal_target_stroke_z">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content bg-dark">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Update Target Stroke AA</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body" style="font-size: 0.4em;">
-                        <div class="form-group row">
-                            <label for="target_stroke_z" class="col-6 col-form-label">Target Stroke ?</label>
-                            <div class="col-6">
-                                <input type="number" class="form-control" id="target_stroke_z" name="target_stroke_z" max="10000" value="0" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+    <div class="fly_z" style="display: none;">
+        <input type="number" class="form-control" id="target_z" name="target_z" placeholder="value Z" min="0" max="9999">
+        <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('z')"><i class="fas fa-times"></i></button>
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

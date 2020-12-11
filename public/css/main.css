@@ -27,8 +27,7 @@ body {
   text-align: center;
   vertical-align: middle !important;
   padding: 0px !important;
-  background-color: #fc0000;
-  color: #000;
+  color: #fff;
 }
 .mm17 span {
   font-size: 4.2vw !important;
@@ -123,27 +122,60 @@ table tbody tr td {
 
 .produksi_aktif {
   background-color: #019E0E;
+  color: #000 !important;
 }
 
 .stop_aktif {
   background-color: #fc0000;
+  color: #000 !important;
 }
 
 .dandori_aktif {
   background-color: #fffb00;
+  color: #000 !important;
 }
 
 .trbl_die_aktif {
   background-color: #007bff;
+  color: #000 !important;
 }
 
 .trbl_mc_aktif {
   background-color: #ff7134;
+  color: #000 !important;
 }
 
 .trigger_modal:hover {
   background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
+}
+
+.fly_i {
+  position: absolute;
+  top: 54vh;
+  left: 35.1vw;
+  width: 14vw;
+}
+
+.fly_h {
+  position: absolute;
+  top: 54vh;
+  left: 51.1vw;
+  width: 14vw;
+}
+
+.fly_aa {
+  position: absolute;
+  top: 54vh;
+  left: 67vw;
+  width: 14vw;
+}
+
+.fly_z {
+  position: absolute;
+  top: 54vh;
+  left: 83.1vw;
+  width: 14vw;
 }
 
 /*# sourceMappingURL=main.css.map */

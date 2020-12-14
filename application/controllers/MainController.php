@@ -16,6 +16,7 @@ class MainController extends CI_Controller
     {
         $ip = $this->input->ip_address();
         // $ip = IPZ;
+        // $ip = '192.168.1.201';
 
         if (!$ip) {
             show_error("Sistem gagal membaca IP Address", 500, "Terjadi Kesalahan!");

@@ -411,10 +411,14 @@
     function initWebSocketTargetStroke() {
         let ws = new WebSocket(`<?= NODERED ?>ws/real_target_stroke`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect real_target_stroke');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect real_target_stroke');
             setTimeout(() => initWebSocketTargetStroke(), 1000);
+            $(`#vi`).text(0);
+            $(`#vh`).text(0);
+            $(`#vaa`).text(0);
+            $(`#vz`).text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
@@ -431,24 +435,24 @@
     function initWebSocketMachineStateI() {
         let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_i`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect machine_indicator_i');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect machine_indicator_i');
             setTimeout(() => initWebSocketMachineStateI(), 1000);
+            i_status.removeClass().addClass(`mm17`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            console.log(res);
 
-            if (res.stateProduksi == '1') {
+            if (res.prod == '1') {
                 i_status.removeClass().addClass(`produksi_aktif mm17`);
-            } else if (res.stateStop == '1') {
+            } else if (res.stop == '1') {
                 i_status.removeClass().addClass(`stop_aktif mm17`);
-            } else if (res.stateDandori == '1') {
+            } else if (res.dand == '1') {
                 i_status.removeClass().addClass(`dandori_aktif mm17`);
-            } else if (res.stateTrblDie == '1') {
+            } else if (res.trbl == '1' && res.die == '1') {
                 i_status.removeClass().addClass(`trbl_die_aktif mm17`);
-            } else if (res.stateTrblMC == '1') {
+            } else if (res.trbl == '1' && res.mc == '1') {
                 i_status.removeClass().addClass(`trbl_mc_aktif mm17`);
             } else {
                 i_status.removeClass().addClass(`mm17`);
@@ -460,24 +464,24 @@
     function initWebSocketMachineStateH() {
         let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_h`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect machine_indicator_h');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect machine_indicator_h');
             setTimeout(() => initWebSocketMachineStateH(), 1000);
+            h_status.removeClass().addClass(`mm17`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            console.log(res);
 
-            if (res.stateProduksi == '1') {
+            if (res.prod == '1') {
                 h_status.removeClass().addClass(`produksi_aktif mm17`);
-            } else if (res.stateStop == '1') {
+            } else if (res.stop == '1') {
                 h_status.removeClass().addClass(`stop_aktif mm17`);
-            } else if (res.stateDandori == '1') {
+            } else if (res.dand == '1') {
                 h_status.removeClass().addClass(`dandori_aktif mm17`);
-            } else if (res.stateTrblDie == '1') {
+            } else if (res.trbl == '1' && res.die == '1') {
                 h_status.removeClass().addClass(`trbl_die_aktif mm17`);
-            } else if (res.stateTrblMC == '1') {
+            } else if (res.trbl == '1' && res.mc == '1') {
                 h_status.removeClass().addClass(`trbl_mc_aktif mm17`);
             } else {
                 h_status.removeClass().addClass(`mm17`);
@@ -489,24 +493,24 @@
     function initWebSocketMachineStateAA() {
         let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_aa`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect machine_indicator_aa');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect machine_indicator_aa');
             setTimeout(() => initWebSocketMachineStateAA(), 1000);
+            aa_status.removeClass().addClass(`mm17`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            console.log(res);
 
-            if (res.stateProduksi == '1') {
+            if (res.prod == '1') {
                 aa_status.removeClass().addClass(`produksi_aktif mm17`);
-            } else if (res.stateStop == '1') {
+            } else if (res.stop == '1') {
                 aa_status.removeClass().addClass(`stop_aktif mm17`);
-            } else if (res.stateDandori == '1') {
+            } else if (res.dand == '1') {
                 aa_status.removeClass().addClass(`dandori_aktif mm17`);
-            } else if (res.stateTrblDie == '1') {
+            } else if (res.trbl == '1' && res.die == '1') {
                 aa_status.removeClass().addClass(`trbl_die_aktif mm17`);
-            } else if (res.stateTrblMC == '1') {
+            } else if (res.trbl == '1' && res.mc == '1') {
                 aa_status.removeClass().addClass(`trbl_mc_aktif mm17`);
             } else {
                 aa_status.removeClass().addClass(`mm17`);
@@ -518,24 +522,24 @@
     function initWebSocketMachineStateZ() {
         let ws = new WebSocket(`<?= NODERED ?>ws/machine_indicator_z`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect machine_indicator_z');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect machine_indicator_z');
             setTimeout(() => initWebSocketMachineStateZ(), 1000);
+            z_status.removeClass().addClass(`mm17`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            console.log(res);
 
-            if (res.stateProduksi == '1') {
+            if (res.prod == '1') {
                 z_status.removeClass().addClass(`produksi_aktif mm17`);
-            } else if (res.stateStop == '1') {
+            } else if (res.stop == '1') {
                 z_status.removeClass().addClass(`stop_aktif mm17`);
-            } else if (res.stateDandori == '1') {
+            } else if (res.dand == '1') {
                 z_status.removeClass().addClass(`dandori_aktif mm17`);
-            } else if (res.stateTrblDie == '1') {
+            } else if (res.trbl == '1' && res.die == '1') {
                 z_status.removeClass().addClass(`trbl_die_aktif mm17`);
-            } else if (res.stateTrblMC == '1') {
+            } else if (res.trbl == '1' && res.mc == '1') {
                 z_status.removeClass().addClass(`trbl_mc_aktif mm17`);
             } else {
                 z_status.removeClass().addClass(`mm17`);
@@ -546,81 +550,65 @@
 
     function initWebSocketItemNameMachineI() {
         let ws = new WebSocket(`<?= NODERED ?>ws/item_name_machine_i`);
-        ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onerror = (e) => console.error(e)
+        ws.onopen = () => console.log('connect item_name_machine_i');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect item_name_machine_i');
             setTimeout(() => initWebSocketItemNameMachineI(), 1000);
+            item_number_machine_i.text("");
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-
-            $.each(res, function(i, k) {
-                // console.log(k);
-                let value = k.value;
-                item_number_machine_i.text(value);
-            });
-
+            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n + res.o;
+            item_number_machine_i.text(itemName);
         }
     }
 
     function initWebSocketItemNameMachineH() {
         let ws = new WebSocket(`<?= NODERED ?>ws/item_name_machine_h`);
-        ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onerror = (e) => console.error(e)
+        ws.onopen = () => console.log('connect item_name_machine_h');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect item_name_machine_h');
             setTimeout(() => initWebSocketItemNameMachineH(), 1000);
+            item_number_machine_h.text("");
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-
-            $.each(res, function(i, k) {
-                // console.log(k);
-                let value = k.value;
-                item_number_machine_h.text(value);
-            });
-
+            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n;
+            item_number_machine_h.text(itemName);
         }
     }
 
     function initWebSocketItemNameMachineAA() {
         let ws = new WebSocket(`<?= NODERED ?>ws/item_name_machine_aa`);
-        ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onerror = (e) => console.error(e)
+        ws.onopen = () => console.log('connect item_name_machine_aa');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect item_name_machine_aa');
             setTimeout(() => initWebSocketItemNameMachineAA(), 1000);
+            item_number_machine_aa.text("");
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-
-            $.each(res, function(i, k) {
-                // console.log(k);
-                let value = k.value;
-                item_number_machine_aa.text(value);
-            });
-
+            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n;
+            item_number_machine_aa.text(itemName);
         }
     }
 
     function initWebSocketItemNameMachineZ() {
         let ws = new WebSocket(`<?= NODERED ?>ws/item_name_machine_z`);
-        ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onerror = (e) => console.error(e)
+        ws.onopen = () => console.log('connect item_name_machine_z');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect item_name_machine_z');
             setTimeout(() => initWebSocketItemNameMachineZ(), 1000);
+            item_number_machine_z.text("");
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-
-            $.each(res, function(i, k) {
-                // console.log(k);
-                let value = k.value;
-                item_number_machine_z.text(value);
-            });
-
+            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n + res.o;
+            item_number_machine_z.text(itemName);
         }
     }
 
@@ -629,8 +617,9 @@
         ws.onerror = (e) => console.log(e)
         ws.onopen = () => console.log('connect current_stroke_i');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect current_stroke_i');
             setTimeout(() => initWebSocketCurrentStrokeI(), 1000);
+            current_stroke_i.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
@@ -643,8 +632,9 @@
         ws.onerror = (e) => console.log(e)
         ws.onopen = () => console.log('connect current_stroke_h');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect current_stroke_h');
             setTimeout(() => initWebSocketCurrentStrokeH(), 1000);
+            current_stroke_h.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
@@ -657,8 +647,9 @@
         ws.onerror = (e) => console.log(e)
         ws.onopen = () => console.log('connect current_stroke_aa');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect current_stroke_aa');
             setTimeout(() => initWebSocketCurrentStrokeAA(), 1000);
+            current_stroke_aa.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
@@ -669,10 +660,11 @@
     function initWebSocketCurrentStrokeZ() {
         let ws = new WebSocket(`<?= NODERED ?>ws/current_stroke_z`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect current_stroke_z');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect current_stroke_z');
             setTimeout(() => initWebSocketCurrentStrokeZ(), 1000);
+            current_stroke_z.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
@@ -683,112 +675,120 @@
     function initWebSocketTotalStrokeI() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_stroke_i`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_stroke_i');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_stroke_i');
             setTimeout(() => initWebSocketTotalStrokeI(), 1000);
+            total_stroke_i.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_stroke_i.text(res.totalStrokeI);
+            total_stroke_i.text(res.totalStroke);
         }
     }
 
     function initWebSocketTotalStrokeH() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_stroke_h`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_stroke_h');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_stroke_h');
             setTimeout(() => initWebSocketTotalStrokeH(), 1000);
+            total_stroke_h.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_stroke_h.text(res.totalStrokeH);
+            total_stroke_h.text(res.totalStroke);
         }
     }
 
     function initWebSocketTotalStrokeAA() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_stroke_aa`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_stroke_aa');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_stroke_aa');
             setTimeout(() => initWebSocketTotalStrokeAA(), 1000);
+            total_stroke_aa.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_stroke_aa.text(res.totalStrokeAA);
+            total_stroke_aa.text(res.totalStroke);
         }
     }
 
     function initWebSocketTotalStrokeZ() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_stroke_z`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_stroke_z');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_stroke_z');
             setTimeout(() => initWebSocketTotalStrokeZ(), 1000);
+            total_stroke_z.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_stroke_z.text(res.totalStrokeZ);
+            total_stroke_z.text(res.totalStroke);
         }
     }
 
     function initWebSocketTotalLineStopI() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_line_stop_i`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_line_stop_i');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_line_stop_i');
             setTimeout(() => initWebSocketTotalLineStopI(), 1000);
+            total_line_stop_i.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_line_stop_i.text(res.totalLineStopI);
+            total_line_stop_i.text(res.totalLineStop);
         }
     }
 
     function initWebSocketTotalLineStopH() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_line_stop_h`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_line_stop_h');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_line_stop_h');
             setTimeout(() => initWebSocketTotalLineStopH(), 1000);
+            total_line_stop_h.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_line_stop_h.text(res.totalLineStopH);
+            total_line_stop_h.text(res.totalLineStop);
         }
     }
 
     function initWebSocketTotalLineStopAA() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_line_stop_aa`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_line_stop_aa');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_line_stop_aa');
             setTimeout(() => initWebSocketTotalLineStopAA(), 1000);
+            total_line_stop_aa.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_line_stop_aa.text(res.totalLineStopAA);
+            total_line_stop_aa.text(res.totalLineStop);
         }
     }
 
     function initWebSocketTotalLineStopZ() {
         let ws = new WebSocket(`<?= NODERED ?>ws/total_line_stop_z`);
         ws.onerror = (e) => console.log(e)
-        ws.onopen = () => console.log('connect');
+        ws.onopen = () => console.log('connect total_line_stop_z');
         ws.onclose = () => {
-            console.log('disconnect');
+            console.warn('disconnect total_line_stop_z');
             setTimeout(() => initWebSocketTotalLineStopZ(), 1000);
+            total_line_stop_z.text(0);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            total_line_stop_z.text(res.totalLineStopZ);
+            total_line_stop_z.text(res.totalLineStop);
         }
     }
 

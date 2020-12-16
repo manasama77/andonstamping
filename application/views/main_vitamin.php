@@ -39,7 +39,12 @@
         total_line_stop_i = $('#total_line_stop_i'),
         total_line_stop_h = $('#total_line_stop_h'),
         total_line_stop_aa = $('#total_line_stop_aa'),
-        total_line_stop_z = $('#total_line_stop_z');
+        total_line_stop_z = $('#total_line_stop_z'),
+
+        blink_i,
+        blink_h,
+        blink_aa,
+        blink_z;
 
     $(document).ready(function() {
 
@@ -439,23 +444,25 @@
         ws.onclose = () => {
             console.warn('disconnect machine_indicator_i');
             setTimeout(() => initWebSocketMachineStateI(), 1000);
-            i_status.removeClass().addClass(`mm17`);
+            i_status.removeClass().addClass(`mm18`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
 
+            console.log(res);
+
             if (res.prod == '1') {
-                i_status.removeClass().addClass(`produksi_aktif mm17`);
+                i_status.removeClass().addClass(`produksi_aktif mm18`);
             } else if (res.stop == '1') {
-                i_status.removeClass().addClass(`stop_aktif mm17`);
+                i_status.removeClass().addClass(`stop_aktif mm18`);
             } else if (res.dand == '1') {
-                i_status.removeClass().addClass(`dandori_aktif mm17`);
+                i_status.removeClass().addClass(`dandori_aktif mm18`);
             } else if (res.trbl == '1' && res.die == '1') {
-                i_status.removeClass().addClass(`trbl_die_aktif mm17`);
+                blinkTrblDie('i');
             } else if (res.trbl == '1' && res.mc == '1') {
-                i_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+                blinkTrblMC('i');
             } else {
-                i_status.removeClass().addClass(`mm17`);
+                i_status.removeClass().addClass(`mm18`);
             }
 
         }
@@ -468,23 +475,23 @@
         ws.onclose = () => {
             console.warn('disconnect machine_indicator_h');
             setTimeout(() => initWebSocketMachineStateH(), 1000);
-            h_status.removeClass().addClass(`mm17`);
+            h_status.removeClass().addClass(`mm18`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
 
             if (res.prod == '1') {
-                h_status.removeClass().addClass(`produksi_aktif mm17`);
+                h_status.removeClass().addClass(`produksi_aktif mm18`);
             } else if (res.stop == '1') {
-                h_status.removeClass().addClass(`stop_aktif mm17`);
+                h_status.removeClass().addClass(`stop_aktif mm18`);
             } else if (res.dand == '1') {
-                h_status.removeClass().addClass(`dandori_aktif mm17`);
+                h_status.removeClass().addClass(`dandori_aktif mm18`);
             } else if (res.trbl == '1' && res.die == '1') {
-                h_status.removeClass().addClass(`trbl_die_aktif mm17`);
+                blinkTrblDie('h');
             } else if (res.trbl == '1' && res.mc == '1') {
-                h_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+                blinkTrblMC('h');
             } else {
-                h_status.removeClass().addClass(`mm17`);
+                h_status.removeClass().addClass(`mm18`);
             }
 
         }
@@ -497,23 +504,23 @@
         ws.onclose = () => {
             console.warn('disconnect machine_indicator_aa');
             setTimeout(() => initWebSocketMachineStateAA(), 1000);
-            aa_status.removeClass().addClass(`mm17`);
+            aa_status.removeClass().addClass(`mm18`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
 
             if (res.prod == '1') {
-                aa_status.removeClass().addClass(`produksi_aktif mm17`);
+                aa_status.removeClass().addClass(`produksi_aktif mm18`);
             } else if (res.stop == '1') {
-                aa_status.removeClass().addClass(`stop_aktif mm17`);
+                aa_status.removeClass().addClass(`stop_aktif mm18`);
             } else if (res.dand == '1') {
-                aa_status.removeClass().addClass(`dandori_aktif mm17`);
+                aa_status.removeClass().addClass(`dandori_aktif mm18`);
             } else if (res.trbl == '1' && res.die == '1') {
-                aa_status.removeClass().addClass(`trbl_die_aktif mm17`);
+                blinkTrblDie('aa');
             } else if (res.trbl == '1' && res.mc == '1') {
-                aa_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+                blinkTrblMC('aa');
             } else {
-                aa_status.removeClass().addClass(`mm17`);
+                aa_status.removeClass().addClass(`mm18`);
             }
 
         }
@@ -526,23 +533,23 @@
         ws.onclose = () => {
             console.warn('disconnect machine_indicator_z');
             setTimeout(() => initWebSocketMachineStateZ(), 1000);
-            z_status.removeClass().addClass(`mm17`);
+            z_status.removeClass().addClass(`mm18`);
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
 
             if (res.prod == '1') {
-                z_status.removeClass().addClass(`produksi_aktif mm17`);
+                z_status.removeClass().addClass(`produksi_aktif mm18`);
             } else if (res.stop == '1') {
-                z_status.removeClass().addClass(`stop_aktif mm17`);
+                z_status.removeClass().addClass(`stop_aktif mm18`);
             } else if (res.dand == '1') {
-                z_status.removeClass().addClass(`dandori_aktif mm17`);
+                z_status.removeClass().addClass(`dandori_aktif mm18`);
             } else if (res.trbl == '1' && res.die == '1') {
-                z_status.removeClass().addClass(`trbl_die_aktif mm17`);
+                blinkTrblDie('z');
             } else if (res.trbl == '1' && res.mc == '1') {
-                z_status.removeClass().addClass(`trbl_mc_aktif mm17`);
+                blinkTrblMC('z');
             } else {
-                z_status.removeClass().addClass(`mm17`);
+                z_status.removeClass().addClass(`mm18`);
             }
 
         }
@@ -559,7 +566,7 @@
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n + res.o;
+            let itemName = String.fromCharCode(res.a) + String.fromCharCode(res.b) + String.fromCharCode(res.c) + String.fromCharCode(res.d) + String.fromCharCode(res.e) + String.fromCharCode(res.f) + String.fromCharCode(res.g) + String.fromCharCode(res.h) + String.fromCharCode(res.i) + String.fromCharCode(res.j) + String.fromCharCode(res.k) + String.fromCharCode(res.l) + String.fromCharCode(res.m) + String.fromCharCode(res.n) + String.fromCharCode(res.o) + String.fromCharCode(res.p);
             item_number_machine_i.text(itemName);
         }
     }
@@ -575,7 +582,7 @@
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n;
+            let itemName = String.fromCharCode(res.a) + String.fromCharCode(res.b) + String.fromCharCode(res.c) + String.fromCharCode(res.d) + String.fromCharCode(res.e) + String.fromCharCode(res.f) + String.fromCharCode(res.g) + String.fromCharCode(res.h) + String.fromCharCode(res.i) + String.fromCharCode(res.j) + String.fromCharCode(res.k) + String.fromCharCode(res.l) + String.fromCharCode(res.m) + String.fromCharCode(res.n) + String.fromCharCode(res.o) + String.fromCharCode(res.p);
             item_number_machine_h.text(itemName);
         }
     }
@@ -591,7 +598,7 @@
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n;
+            let itemName = String.fromCharCode(res.a) + String.fromCharCode(res.b) + String.fromCharCode(res.c) + String.fromCharCode(res.d) + String.fromCharCode(res.e) + String.fromCharCode(res.f) + String.fromCharCode(res.g) + String.fromCharCode(res.h) + String.fromCharCode(res.i) + String.fromCharCode(res.j) + String.fromCharCode(res.k) + String.fromCharCode(res.l) + String.fromCharCode(res.m) + String.fromCharCode(res.n) + String.fromCharCode(res.o) + String.fromCharCode(res.p);
             item_number_machine_aa.text(itemName);
         }
     }
@@ -607,7 +614,7 @@
         }
         ws.onmessage = (e) => {
             let res = JSON.parse(e.data);
-            let itemName = res.a + res.b + res.c + res.d + res.e + res.f + res.g + res.h + res.i + res.j + res.k + res.l + res.m + res.n + res.o;
+            let itemName = String.fromCharCode(res.a) + String.fromCharCode(res.b) + String.fromCharCode(res.c) + String.fromCharCode(res.d) + String.fromCharCode(res.e) + String.fromCharCode(res.f) + String.fromCharCode(res.g) + String.fromCharCode(res.h) + String.fromCharCode(res.i) + String.fromCharCode(res.j) + String.fromCharCode(res.k) + String.fromCharCode(res.l) + String.fromCharCode(res.m) + String.fromCharCode(res.n) + String.fromCharCode(res.o) + String.fromCharCode(res.p);
             item_number_machine_z.text(itemName);
         }
     }
@@ -824,5 +831,27 @@
                 }
             });
         });
+    }
+
+    function blinkTrblDie(tipe) {
+        let cd = new Date();
+        let secondnya = cd.getSeconds();
+
+        if ((secondnya % 2) == 1) {
+            $(`#${tipe}_status`).removeClass().addClass('mm18 trbl_die_aktif');
+        } else {
+            $(`#${tipe}_status`).removeClass().addClass('mm18 trbl_die_blink');
+        }
+    }
+
+    function blinkTrblMC(tipe) {
+        let cd = new Date();
+        let secondnya = cd.getSeconds();
+
+        if ((secondnya % 2) == 1) {
+            $(`#${tipe}_status`).removeClass().addClass('mm18 trbl_mc_aktif');
+        } else {
+            $(`#${tipe}_status`).removeClass().addClass('mm18 trbl_mc_blink');
+        }
     }
 </script>

@@ -89,4 +89,4 @@ defined('IPI') or define('IPI', "192.168.1.101");
 defined('IPH') or define('IPH', "192.168.1.102");
 defined('IPAA') or define('IPAA', "192.168.1.103");
 defined('IPZ') or define('IPZ', "192.168.1.104");
-defined('NODERED') or define('NODERED', "ws://localhost:1880/");
+defined('NODERED') or define('NODERED', "ws://" . $_SERVER['HTTP_HOST'] . ":1880/");

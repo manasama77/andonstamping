@@ -11,7 +11,25 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url(); ?>vendor/fortawesome/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="<?= base_url(); ?>public/css/main.css" />
 
-    <title>MAIN - <?= $ip; ?></title>
+    <link rel="apple-touch-icon" sizes="57x57" href="<?= base_url(); ?>public/images/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="<?= base_url(); ?>public/images/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="<?= base_url(); ?>public/images/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url(); ?>public/images/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="<?= base_url(); ?>public/images/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="<?= base_url(); ?>public/images/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="<?= base_url(); ?>public/images/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="<?= base_url(); ?>public/images/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url(); ?>public/images/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="<?= base_url(); ?>public/images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url(); ?>public/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="<?= base_url(); ?>public/images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url(); ?>public/images/favicon-16x16.png">
+    <link rel="manifest" href="<?= base_url(); ?>manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="<?= base_url(); ?>public/images/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <title>ANDON PRODUKSI</title>
 </head>
 
 <body>
@@ -39,10 +57,10 @@
                     <tbody>
                         <tr>
                             <td class="judulkiri">item number</td>
-                            <td class="text-left tgu" id="item_number_machine_i"><span>57628.9-KK010</span></td>
-                            <td class="text-left tgu" id="item_number_machine_h"><span>58111.2-OD060</span></td>
-                            <td class="text-left tgu" id="item_number_machine_aa"><span>12112-OC010</span></td>
-                            <td class="text-left tgu" id="item_number_machine_z"><span>57411-KK010</span></td>
+                            <td class="text-left tgu" id="item_number_machine_i"><span>-</span></td>
+                            <td class="text-left tgu" id="item_number_machine_h"><span>-</span></td>
+                            <td class="text-left tgu" id="item_number_machine_aa"><span>-</span></td>
+                            <td class="text-left tgu" id="item_number_machine_z"><span>-</span></td>
                         </tr>
                         <tr>
                             <td class="judulkiri">current stroke</td>
@@ -53,10 +71,10 @@
                         </tr>
                         <tr>
                             <td class="judulkiri">target stroke</td>
-                            <td id="vi" class="text-center tg frx td_angka <?= $trigger_i; ?>" data-target="0"><span>0</span></td>
-                            <td id="vh" class="text-center tg frx td_angka <?= $trigger_h; ?>" data-target="0"><span>0</span></td>
-                            <td id="vaa" class="text-center tg frx td_angka <?= $trigger_aa; ?>" data-target="0"><span>0</span></td>
-                            <td id="vz" class="text-center tg frx td_angka <?= $trigger_z; ?>" data-target="0"><span>0</span></td>
+                            <td id="vi" class="text-center tg frx td_angka trigger_modal trigger_modal_i" data-target="0"><span>0</span></td>
+                            <td id="vh" class="text-center tg frx td_angka trigger_modal trigger_modal_h" data-target="0"><span>0</span></td>
+                            <td id="vaa" class="text-center tg frx td_angka trigger_modal trigger_modal_aa" data-target="0"><span>0</span></td>
+                            <td id="vz" class="text-center tg frx td_angka trigger_modal trigger_modal_z" data-target="0"><span>0</span></td>
                         </tr>
                         <tr>
                             <td class="judulkiri">total stroke</td>

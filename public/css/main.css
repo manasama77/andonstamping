@@ -52,7 +52,7 @@ body {
 
 .bottom {
   position: absolute;
-  font-size: 0.8em;
+  font-size: 1em;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -63,7 +63,7 @@ body {
 
 .top {
   position: absolute;
-  font-size: 0.8em;
+  font-size: 1em;
   width: 100%;
   top: 0%;
   left: 0%;

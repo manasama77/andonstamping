@@ -11,7 +11,7 @@
  Target Server Version : 100416
  File Encoding         : 65001
 
- Date: 11/12/2020 09:42:46
+ Date: 21/12/2020 16:58:06
 */
 
 SET NAMES utf8mb4;
@@ -31,9 +31,35 @@ CREATE TABLE `targets`  (
 -- ----------------------------
 -- Records of targets
 -- ----------------------------
-INSERT INTO `targets` VALUES ('i', 8, '2020-12-07 21:27:01', NULL);
-INSERT INTO `targets` VALUES ('h', 4, '2020-12-07 21:07:24', NULL);
-INSERT INTO `targets` VALUES ('aa', 2, '2020-12-04 08:43:34', NULL);
-INSERT INTO `targets` VALUES ('z', 1, '2020-12-04 08:43:32', NULL);
+INSERT INTO `targets` VALUES ('i', 0, NULL, NULL);
+INSERT INTO `targets` VALUES ('h', 0, NULL, NULL);
+INSERT INTO `targets` VALUES ('aa', 0, NULL, NULL);
+INSERT INTO `targets` VALUES ('z', 0, NULL, NULL);
+
+-- ----------------------------
+-- Procedure structure for newTarget
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `newTarget`;
+delimiter ;;
+CREATE PROCEDURE `newTarget`(IN machineName VARCHAR(255),
+	IN machineValue INT,
+	OUT machineNameOut VARCHAR(255),
+	OUT machineValueOut INT)
+BEGIN 
+	INSERT INTO target 
+	(
+		machine_name, 
+		target_value, 
+		updated_at
+	)
+	VALUES
+	(
+		machineName,
+		machineValue,
+		NOW()
+	);
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;

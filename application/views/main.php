@@ -38,39 +38,39 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><b>item number</b></td>
-                            <td class="text-center tgu" id="item_number_machine_i">-</td>
-                            <td class="text-center tgb" id="item_number_machine_h">-</td>
-                            <td class="text-center tgu" id="item_number_machine_aa">-</td>
-                            <td class="text-center tgb" id="item_number_machine_z">-</td>
+                            <td class="judulkiri">item number</td>
+                            <td class="text-left tgu" id="item_number_machine_i"><span>57628.9-KK010</span></td>
+                            <td class="text-left tgu" id="item_number_machine_h"><span>58111.2-OD060</span></td>
+                            <td class="text-left tgu" id="item_number_machine_aa"><span>12112-OC010</span></td>
+                            <td class="text-left tgu" id="item_number_machine_z"><span>57411-KK010</span></td>
                         </tr>
                         <tr>
-                            <td><b>current stroke</b></td>
-                            <td class="text-center tg frx" id="current_stroke_i">0</td>
-                            <td class="text-center tg frx" id="current_stroke_h">0</td>
-                            <td class="text-center tg frx" id="current_stroke_aa">0</td>
-                            <td class="text-center tg frx" id="current_stroke_z">0</td>
+                            <td class="judulkiri">current stroke</td>
+                            <td class="text-center tg frx td_angka" id="current_stroke_i"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="current_stroke_h"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="current_stroke_aa"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="current_stroke_z"><span>0</span></td>
                         </tr>
                         <tr>
-                            <td><b>target stroke</b></td>
-                            <td id="vi" class="text-center tg frx <?= $trigger_i; ?>" data-target="0">0</td>
-                            <td id="vh" class="text-center tg frx <?= $trigger_h; ?>" data-target="0">0</td>
-                            <td id="vaa" class="text-center tg frx <?= $trigger_aa; ?>" data-target="0">0</td>
-                            <td id="vz" class="text-center tg frx <?= $trigger_z; ?>" data-target="0">0</td>
+                            <td class="judulkiri">target stroke</td>
+                            <td id="vi" class="text-center tg frx td_angka <?= $trigger_i; ?>" data-target="0"><span>0</span></td>
+                            <td id="vh" class="text-center tg frx td_angka <?= $trigger_h; ?>" data-target="0"><span>0</span></td>
+                            <td id="vaa" class="text-center tg frx td_angka <?= $trigger_aa; ?>" data-target="0"><span>0</span></td>
+                            <td id="vz" class="text-center tg frx td_angka <?= $trigger_z; ?>" data-target="0"><span>0</span></td>
                         </tr>
                         <tr>
-                            <td clas><b>total stroke</b></td>
-                            <td class="text-center tg frx" id="total_stroke_i">0</td>
-                            <td class="text-center tg frx" id="total_stroke_h">0</td>
-                            <td class="text-center tg frx" id="total_stroke_aa">0</td>
-                            <td class="text-center tg frx" id="total_stroke_z">0</td>
+                            <td class="judulkiri">total stroke</td>
+                            <td class="text-center tg frx td_angka" id="total_stroke_i"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_stroke_h"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_stroke_aa"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_stroke_z"><span>0</span></td>
                         </tr>
                         <tr>
-                            <td><b>total line stop</b></td>
-                            <td class="text-center tg frx" id="total_line_stop_i">0</td>
-                            <td class="text-center tg frx" id="total_line_stop_h">0</td>
-                            <td class="text-center tg frx" id="total_line_stop_aa">0</td>
-                            <td class="text-center tg frx" id="total_line_stop_z">0</td>
+                            <td class="judulkiri">total line stop</td>
+                            <td class="text-center tg frx td_angka" id="total_line_stop_i"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_line_stop_h"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_line_stop_aa"><span>0</span></td>
+                            <td class="text-center tg frx td_angka" id="total_line_stop_z"><span>0</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -99,7 +99,14 @@
                         <rect style="width: 5vw; height: 5vw; fill:#FF7F00; stroke-width:3;stroke:rgb(255,255,255)" />
                     </svg>
                     <span style="font-size: 0.6em; margin-left: -0.4em; margin-right: 1em;">trbl-mc</span>
-
+                    <div class="float-right">
+                        <button type="button" id="login" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <button type="button" id="signout" class="btn btn-danger btn-lg" onclick="signOut();" style="display:none;">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -124,6 +131,35 @@
         <input type="text" class="form-control" id="target_z" name="target_z" placeholder="value Z" min="0" max="9999">
         <button type="button" class="btn btn-danger btn-sm" onclick="closeFormsX('z')"><i class="fas fa-times"></i></button>
     </div>
+
+    <form id="loginForm">
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="exampleModalLabel">Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-dark">
+                        <div class="form-group">
+                            <label for="username" style="font-size: 1rem;">Username</label>
+                            <input type="text" class="form-control" id="username" class="username" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" style="font-size: 1rem;">Password</label>
+                            <input type="password" class="form-control" id="password" class="password" placeholder="Password" autocomplete="new-password" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

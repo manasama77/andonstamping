@@ -41,10 +41,22 @@
         total_line_stop_aa = $('#total_line_stop_aa'),
         total_line_stop_z = $('#total_line_stop_z'),
 
+        item_number_machine_i_span = $('#item_number_machine_i > span'),
+        item_number_machine_h_span = $('#item_number_machine_h > span'),
+        item_number_machine_aa_span = $('#item_number_machine_aa > span'),
+        item_number_machine_z_span = $('#item_number_machine_z > span'),
+
         blink_i,
         blink_h,
         blink_aa,
-        blink_z;
+        blink_z,
+
+        loginForm = $('#loginForm'),
+        modalLogin = $('#modalLogin'),
+        username = $('#username'),
+        password = $('#password'),
+        login = $('#login'),
+        signout = $('#signout');
 
     $(document).ready(function() {
 
@@ -78,25 +90,35 @@
         initWebSocketTotalLineStopH();
         initWebSocketTotalLineStopAA();
         initWebSocketTotalLineStopZ();
+        scaleItenName();
+        checkSession();
 
         trigger_modal_i.on('click', function() {
-            openFormsX("i");
-            target_i.focus();
+            if (sessionStorage.getItem('login') == "ya") {
+                openFormsX("i");
+                target_i.focus();
+            }
         });
 
         trigger_modal_h.on('click', function() {
-            openFormsX("h");
-            target_h.focus();
+            if (sessionStorage.getItem('login') == "ya") {
+                openFormsX("h");
+                target_h.focus();
+            }
         });
 
         trigger_modal_aa.on('click', function() {
-            openFormsX("aa");
-            target_aa.focus();
+            if (sessionStorage.getItem('login') == "ya") {
+                openFormsX("aa");
+                target_aa.focus();
+            }
         });
 
         trigger_modal_z.on('click', function() {
-            openFormsX("z");
-            target_z.focus();
+            if (sessionStorage.getItem('login') == "ya") {
+                openFormsX("z");
+                target_z.focus();
+            }
         });
 
         target_i.on('keypress', function(e) {
@@ -396,6 +418,33 @@
 
         });
 
+        loginForm.on('submit', function(e) {
+            e.preventDefault();
+
+            if (username.val() == 'toyota' && password.val() == 'toyota') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login Berhasil',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function() {
+                    sessionStorage.setItem("login", "ya");
+                    checkSession();
+                });
+            } else {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Username atau Password Salah, silahkan coba kembali',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function() {
+                    signOut();
+                });
+            }
+        });
+
         setInputFilter(document.getElementById("target_i"), function(value) {
             return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
         });
@@ -431,7 +480,7 @@
             $.each(res, function(i, k) {
                 let name_print = k.name.toLowerCase();
                 let target_print = k.target;
-                $(`#v${name_print}`).text(target_print);
+                $(`#v${name_print} > span`).text(target_print);
             });
 
         }
@@ -805,10 +854,6 @@
         $(`#target_${name}`).val(prev_target);
     }
 
-    // function closeFormsX(name) {
-    //     $(`.fly_${name}`).hide();
-    // }
-
     function closeFormsX() {
         $(`.fly_i`).hide();
         $(`.fly_h`).hide();
@@ -853,5 +898,64 @@
         } else {
             $(`#${tipe}_status`).removeClass().addClass('mm18 trbl_mc_blink');
         }
+    }
+
+    function scaleItenName() {
+
+        var arr_css_panjang = {
+            'transform': 'scaleX(0.9) scaleY(1)',
+            'left': '0%',
+            'top': '-20%',
+            'text-align': 'center',
+            'width': '100%'
+        };
+
+        var arr_css_pendek = {
+            'transform': 'scaleX(1) scaleY(1)',
+            'left': '0%',
+            'top': '-20%',
+            'text-align': 'center',
+            'width': '100%'
+        };
+
+        if (item_number_machine_i_span.text().length >= 13) {
+            item_number_machine_i_span.css(arr_css_panjang);
+        } else {
+            item_number_machine_i_span.css(arr_css_pendek);
+        }
+
+        if (item_number_machine_h_span.text().length >= 13) {
+            item_number_machine_h_span.css(arr_css_panjang);
+        } else {
+            item_number_machine_h_span.css(arr_css_pendek);
+        }
+
+        if (item_number_machine_aa_span.text().length >= 13) {
+            item_number_machine_aa_span.css(arr_css_panjang);
+        } else {
+            item_number_machine_aa_span.css(arr_css_pendek);
+        }
+
+        if (item_number_machine_z_span.text().length >= 13) {
+            item_number_machine_z_span.css(arr_css_panjang);
+        } else {
+            item_number_machine_z_span.css(arr_css_pendek);
+        }
+    }
+
+    function checkSession() {
+        if (sessionStorage.getItem('login') == "ya") {
+            signout.show();
+            login.hide();
+            modalLogin.modal('hide');
+        } else {
+            signOut();
+        }
+    }
+
+    function signOut() {
+        sessionStorage.setItem('login', 'tidak');
+        signout.hide();
+        login.show();
     }
 </script>

@@ -93,6 +93,7 @@
                     </tbody>
                 </table>
                 <div class="mm12">
+                    <span style="font-size: 0.8em;">Keterangan Warna:</span>
                     <svg style="width: 5vw; height: 5vw;">
                         <rect style="width: 5vw; height: 5vw; fill:#00BA00; stroke-width:3;stroke:rgb(255,255,255)" />
                     </svg>

@@ -421,7 +421,7 @@
         loginForm.on('submit', function(e) {
             e.preventDefault();
 
-            if (username.val() == 'toyota' && password.val() == 'toyota') {
+            if (username.val() == 'andonstamping' && password.val() == 'toyota') {
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

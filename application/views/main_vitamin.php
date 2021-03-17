@@ -69,6 +69,7 @@
             e.stopPropagation();
         });
 
+        initAPITargetStroke();
         initWebSocketTargetStroke();
         initWebSocketMachineStateI();
         initWebSocketMachineStateH();
@@ -461,6 +462,25 @@
             return /^\d*\.?\d*$/.test(value); // Allow digits and '.' only, using a RegExp
         });
     });
+
+    function initAPITargetStroke() {
+        $.ajax({
+            url: `<?= API ?>init_target`,
+            method: 'get',
+            dataType: 'json',
+            beforeSend: function() {
+                $.blockUI();
+            }
+        }).always({
+            $.unblockUI();
+        }).done(funnction() {
+            $.each(res, function(i, k) {
+                let name_print = k.name.toLowerCase();
+                let target_print = k.target;
+                $(`#v${name_print} > span`).text(target_print);
+            });
+        });
+    }
 
     function initWebSocketTargetStroke() {
         let ws = new WebSocket(`<?= NODERED ?>ws/real_target_stroke`);

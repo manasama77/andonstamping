@@ -90,3 +90,4 @@ defined('IPH') or define('IPH', "192.168.1.102");
 defined('IPAA') or define('IPAA', "192.168.1.103");
 defined('IPZ') or define('IPZ', "192.168.1.104");
 defined('NODERED') or define('NODERED', "ws://" . $_SERVER['HTTP_HOST'] . ":1880/");
+defined('API') or define('API', "http://" . $_SERVER['HTTP_HOST'] . ":1880/api/");

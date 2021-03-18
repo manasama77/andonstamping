@@ -471,9 +471,9 @@
             beforeSend: function() {
                 $.blockUI();
             }
-        }).always({
+        }).always(function() {
             $.unblockUI();
-        }).done(funnction() {
+        }).done(function(res) {
             $.each(res, function(i, k) {
                 let name_print = k.name.toLowerCase();
                 let target_print = k.target;

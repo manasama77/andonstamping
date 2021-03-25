@@ -125,37 +125,43 @@
         target_i.on('keypress', function(e) {
 
             if (e.which == 13) {
-                $.ajax({
-                    url: `<?= site_url(); ?>update_target/i`,
-                    method: 'post',
-                    dataType: 'json',
-                    data: {
-                        target_stroke_i: target_i.val(),
-                        tipe: 'i',
-                    },
-                }).always(function() {
-                    fly_i.hide();
-                }).fail(function(res) {
-                    console.log(res);
-                }).done(function(res) {
-                    if (res.code == 500) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Proses Update Target Stroke I Gagal, Silahkan coba kembali',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    } else if (res.code == 200) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Target Stroke I Berhasil diupdate',
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                    }
+                $.blockUI();
+                setTimeout(function() {
+                    $.ajax({
+                        url: `<?= site_url(); ?>update_target/i`,
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            target_stroke_i: target_i.val(),
+                            tipe: 'i',
+                        },
+                    }).always(function() {
+                        fly_i.hide();
+                        $.unblockUI();
+                    }).fail(function(res) {
+                        console.log(res);
+                    }).done(function(res) {
+                        if (res.code == 500) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Proses Update Target Stroke I Gagal, Silahkan coba kembali',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        } else if (res.code == 200) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Target Stroke I Berhasil diupdate',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    });
                 });
+            } else {
+                console.log("else");
             }
 
         });
